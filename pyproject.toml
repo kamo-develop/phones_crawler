@@ -10,6 +10,7 @@ python = "^3.9"
 scrapy = "^2.11.1"
 undetected-chromedriver = "^3.5.5"
 pandas = "^2.2.1"
+scrapy-rotating-proxies = "^0.6.2"
 
 
 [build-system]
