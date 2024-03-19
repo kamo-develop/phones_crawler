@@ -1,0 +1,14 @@
+/scrapy.iml
+__pycache__/
+venv
+build
+dist
+.idea
+.pytest_cache/
+.cache/
+.mypy_cache/
+
+*.log
+*.out
+result.json
+poetry.lock
