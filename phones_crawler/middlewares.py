@@ -3,14 +3,17 @@ from scrapy.http import HtmlResponse
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
-import undetected_chromedriver as uc
-
+# import undetected_chromedriver as uc
+from selenium import webdriver
 
 class PhonesCrawlerDownloaderMiddleware:
     """Совершает запросы через специальный драйвер, который обходит блокировку"""
 
     def __init__(self):
-        self.driver = uc.Chrome()
+        options = webdriver.ChromeOptions()
+        options.add_argument("--disable-blink-features=AutomationControlled")
+        # options.add_argument("--headless")
+        self.driver = webdriver.Chrome(options=options)
 
     @classmethod
     def from_crawler(cls, crawler):
@@ -22,7 +25,7 @@ class PhonesCrawlerDownloaderMiddleware:
         self.driver.get(request.url)
 
         # Необходимо дождаться загрузки всей страницы
-        WebDriverWait(self.driver, 10).until(
+        WebDriverWait(self.driver, 300).until(
             expected_conditions.presence_of_element_located((By.ID, "ozonTagManagerApp"))
         )
 

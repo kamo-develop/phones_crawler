@@ -34,6 +34,7 @@ class PhonesSpider(scrapy.Spider):
         ).getall()
 
         count_requested_phones = len(phones_href)
+        base_logger.info(f"{count_requested_phones} phones on page {self.page_num}")
         if self.total_phones_on_pages + count_requested_phones > PHONES_COUNT:
             # Чтобы запарсить ровно PHONES_COUNT смартфонов и не больше
             count_requested_phones = PHONES_COUNT - self.total_phones_on_pages
@@ -69,6 +70,7 @@ class PhonesSpider(scrapy.Spider):
         self.os_versions.append(os_version)
         yield {
             "os_version": os_version,
+            "url": response.url,
         }
 
     def spider_closed(self, spider):
